@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
 
-    <title>Time Left in 2020</title>
+    <title>Öffnungszeiten La Luna</title>
     <style>
         
         body{
@@ -40,10 +40,9 @@
 <body>
     <div id="counter">
         <h2>
-            Time left in 2021
+            Wir öffnen in:
         </h2>    
         
-            <h2 class="box" id="days"></h2>
             <h2 class="box" id="hours"></h2>
             <h2 class="box" id="minutes"></h2>
 
@@ -55,7 +54,6 @@
 
 <script>
     function CountDownTimer  (date) {
-    left_days = document.getElementById("days");
     left_hours = document.getElementById("hours");
     left_minutes = document.getElementById("minutes");
 
@@ -63,7 +61,6 @@
     _second = 1000;
     _minute = _second * 60;
     _hour = _minute * 60;
-    _day = _hour * 24;
     }
     function showRemaining (){
     now = new Date();
