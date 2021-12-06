@@ -1,89 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet" />
 
     <title>Öffnungszeiten La Luna</title>
     <style>
-        
-        body{
+        body {
             text-align: center;
-            font-family: 'Fjalla One', sans-serif;
+            font-family: "Fjalla One", sans-serif;
             background-color: #fff;
         }
-        .box{
+        
+        .box {
             display: inline-block;
-            max-width: 80px;
             color: #fff;
-            padding: 10px;
-            border-radius: 5px;
+            padding: 10 px;
+            border-radius: 10 px;
+            background-color: #e2871c;
         }
-        #hours{
-            background-color:#4CAF50;
-        }
-        #minutes{
-            background-color:#D84E49;
-        }
-        h3{
+        
+        h2 {
             display: inline-block;
-            margin-right: 10px;
+            margin-right: 10 px;
+            color: darkgrey;
         }
-
-
+        
+        h3 {
+            display: inline-block;
+            margin-right: 10 px;
+        }
+        
+        @media screen and(max-width: 800px) {
+            h2:after {
+                content: "\A";
+                white-space: pre;
+            }
+            h2 {
+                font-size: 0.8 rem;
+            }
+            h3 {
+                font-size: 0.5 rem;
+            }
+        }
     </style>
 </head>
-<body>
+
+<body onload="showOpeningTimes()">
     <div id="counter">
-        <h3>
-            Wir öffnen in:
-        </h3>    
-        
-            <h3 class="box" id="hours"></h2>
-            <h3 class="box" id="minutes"></h2>
+        <h2 id="text"></h2>
 
+        <h3 class="box" id="first"></h3>
+        <h3 class="box" id="second"></h3>
     </div>
-    
 
+    <script>
+        function showOpeningTimes() {
+            // Im Sommer, trag "const summerMode = true;" ein!
+            // Im Winter, trag "const summerMode = false;" ein!
 
+            const summerMode = false;
+            // summer opening times!
+            const summer_monday_friday_start1 = "11:00";
+            const summer_monday_friday_end1 = "14:00";
+            const summer_monday_friday_start2 = "17:00";
+            const summer_monday_friday_end2 = "21:00";
 
+            const summer_saturday_sunday_start = "11:00";
+            const summer_saturday_sunday_end = "21:00";
 
-<script>
-    function CountDownTimer  (date) {
-    left_hours = document.getElementById("hours");
-    left_minutes = document.getElementById("minutes");
+            // winter opening times!
+            const winter_tuesday_friday_start1 = "11:00";
+            const winter_tuesday_friday_end1 = "14:00";
+            const winter_tuesday_friday_start2 = "17:00";
+            const winter_tuesday_friday_end2 = "21:00";
 
-    end = new Date(date);
-    _second = 1000;
-    _minute = _second * 60;
-    _hour = _minute * 60;
-    _day = _hour * 24;
-    }
-    function showRemaining (){
-    now = new Date();
-    distance = end - now;
-    distance2 = new Date("01/01/2021 00:00 AM") - now
-    if (distance <= 0 ){
-      clearInterval (timer)
-      document.getElementById("counter").innerHTML = "<h2>Wir haben aktuell geöffnet! <h2>";
-      return
-    }
-    else if (distance2 > 0  ){
-      clearInterval (timer)
-      document.getElementById("counter").innerHTML =  "<h2>2021 Didn't Start yet!</h2>";
-      return
-    } 
-    days = Math.floor(distance / _day)
-    hours = Math.floor((distance % _day) / _hour)
-    minutes = Math.floor((distance % _hour) / _minute)
-    left_hours.innerHTML = hours + " hours "
-    left_minutes.innerHTML = minutes + " mins "
-    }
-    
+            const winter_saturday_sunday_start = "11:00";
+            const winter_saturday_sunday_end = "21:00";
 
-timer = setInterval (showRemaining, 1) 
-CountDownTimer( "01/01/2022 00:00 AM")
-</script>
+            let now = new Date();
+            let currentDay = now.getDay();
+            const connect = "-";
+            let text = "";
+            let first = "";
+            let second = "";
+            switch (currentDay) {
+                case 1:
+                    if (summerMode) {
+                        text = "Heute geöffnet:";
+                        first =
+                            summer_monday_friday_start1 +
+                            connect +
+                            summer_monday_friday_end1;
+                        second =
+                            summer_monday_friday_start2 +
+                            connect +
+                            summer_monday_friday_end2;
+                    } else {
+                        first = "Heute haben wir leider geschlossen!";
+                    }
+                    break;
+
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    text = "Heute geöffnet:";
+                    first =
+                        summer_monday_friday_start1 + connect + summer_monday_friday_end1;
+                    second =
+                        summer_monday_friday_start2 + connect + summer_monday_friday_end2;
+                    break;
+                case 6:
+                case 0:
+                    text = "Heute geöffnet:";
+                    first =
+                        summer_saturday_sunday_start + connect + summer_saturday_sunday_end;
+                    break;
+                default:
+                    break;
+            }
+            let text_element = document.getElementById("text");
+            let first_element = document.getElementById("first");
+            let second_element = document.getElementById("second");
+            text_element.innerHTML = text;
+            first_element.innerHTML = first;
+            second_element.innerHTML = second;
+        }
+    </script>
 </body>
+
 </html>
